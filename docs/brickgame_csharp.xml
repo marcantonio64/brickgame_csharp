@@ -1,0 +1,917 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>brickgame_csharp</name>
+    </assembly>
+    <members>
+        <member name="T:BrickGame.Block">
+            <summary>
+            Establishes the structure, appearance, and behavior of unit cells.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Block.#ctor(System.Drawing.Point)">
+            <summary>
+            A constructor with a <see cref="T:System.Drawing.Point"/> of coordinates.
+            </summary>
+            <param name="coordinates">A pair of coordinates. Must range from <c>(0, 0)</c> (inclusive)
+            to <c>(9, 19)</c> (inclusive) to show on the screen.</param>
+        </member>
+        <member name="M:BrickGame.Block.#ctor(System.Int32,System.Int32)">
+            <summary>
+            A constructor with raw coordinates.
+            </summary>
+            <param name="i">Horizontal position. Must be from 0 (inclusive) to 10 (exclusive)
+            to show on the screen.</param>
+            <param name="j">Vertical position. Must be from 0 (inclusive) to 20 (exclusive)
+            to show on the screen.</param>
+        </member>
+        <member name="M:BrickGame.Block.GetSprite">
+            <summary>
+            Selects the <see cref="T:BrickGame.Sprite"/> at the current <see cref="P:BrickGame.Block.Coordinates"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Block.MoveTo(System.Drawing.Point)">
+            <summary>
+            Changes the <see cref="P:BrickGame.Block.Coordinates"/> and the <see cref="T:BrickGame.Sprite"/>
+            according to the given <see cref="T:System.Drawing.Point"/> position.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Block.MoveTo(System.Int32,System.Int32)">
+            <summary>
+            Changes the <see cref="P:BrickGame.Block.Coordinates"/> and the <see cref="T:BrickGame.Sprite"/>
+            according to the given position.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Block.Move">
+            <summary>
+            Changes the <see cref="P:BrickGame.Block.Coordinates"/> and the <see cref="T:BrickGame.Sprite"/>
+            according to <see cref="P:BrickGame.Block.direction"/>.
+            </summary>
+        </member>
+        <member name="T:BrickGame.BlinkingBlock">
+            <summary>
+            A <see cref="T:BrickGame.Block"/> with a name identifier.
+            </summary>    
+        </member>
+        <member name="T:BrickGame.HiddenBlock">
+            <summary>
+            A <see cref="T:BrickGame.Block"/> with a name identifier.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Bomb">
+            <summary>
+            Used to destroy a target upon collision.
+            </summary>
+            <para>The bombs are built as an <c>List</c> of <see cref="T:BrickGame.Block"/>
+            objects, forming an X shape, akin to that of a sea mine.</para>
+        </member>
+        <member name="M:BrickGame.Bomb.#ctor(System.Int32,System.Int32,System.Collections.Generic.List{BrickGame.Block})">
+            <summary>
+            A constructor with raw coordinates where the required <see cref="T:BrickGame.Block"/>,
+            <see cref="T:BrickGame.BlinkingBlock"/>, and <see cref="T:BrickGame.HiddenBlock"/> objects are created
+            and organized in the given group.
+            </summary>
+            <param name="i">Horizontal position. Must be from 0 (inclusive) to 10 (exclusive)
+            to show on the screen.</param>
+            <param name="j">Vertical position. Must be from 0 (inclusive) to 20 (exclusive)
+            to show on the screen.</param>
+            <param name="group">A <c>List</c> containing the <see cref="T:BrickGame.Bomb"/>s elements.</param>
+        </member>
+        <member name="M:BrickGame.Bomb.#ctor(System.Drawing.Point,System.Collections.Generic.List{BrickGame.Block})">
+            <summary>
+            A constructor with a <see cref="T:System.Drawing.Point"/> of coordinates, where the required
+            <see cref="T:BrickGame.Block"/>, <see cref="T:BrickGame.BlinkingBlock"/>, and <see cref="T:BrickGame.HiddenBlock"/>
+            objects are created and organized in the given group.
+            </summary>
+            <param name="coordinates">A pair of coordinates. Must range from <c>(0, 0)</c> (inclusive)
+            to <c>(9, 19)</c> (inclusive) to show on the screen.</param>
+            <param name="group">A <c>List</c> containing the <see cref="T:BrickGame.Bomb"/>s elements.</param>
+        </member>
+        <member name="M:BrickGame.Bomb.#ctor">
+            <summary>
+            An empty <see cref="T:BrickGame.Bomb"/> object.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Bomb.Explode(System.Collections.Generic.List{BrickGame.Block})">
+            <summary>
+            Destroys the targets hit by the last <see cref="T:BrickGame.Bomb"/> in the <see cref="F:BrickGame.Bomb.bombs"/> static list.
+            </summary>
+            <param name="target">List of <see cref="T:BrickGame.Block"/>s and <see cref="T:BrickGame.BlinkingBlock"/>s to be destroyed.</param>
+        </member>
+        <member name="T:BrickGame.Client">
+            <summary>
+            Establishes the basic structure of the client.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Client.#ctor">
+            <summary>
+            A constructor that creates a GUI, reads user input, and sets a loop.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Client.Paint(System.Drawing.Graphics,System.Drawing.Color,System.Int32,System.Int32)">
+            <summary>
+            Sets the drawing of sprites.
+            </summary>
+            <param name="g">The <see cref="T:System.Drawing.Graphics"/> from the current <see cref="T:System.Windows.Forms.Control"/> object.</param>
+            <param name="c">The desired <see cref="T:System.Drawing.Color"/>.</param>
+            <param name="x">The desired <c>x</c> position.</param>
+            <param name="y">The desired <c>y</c> position.</param>
+        </member>
+        <member name="M:BrickGame.Client.Paint(System.Drawing.Graphics,System.Drawing.Color)">
+            <summary>
+            Sets the drawing of sprites.
+            </summary>
+            <param name="g">The <see cref="T:System.Drawing.Graphics"/> from the current <see cref="T:System.Windows.Forms.Control"/> object.</param>
+            <param name="c">The desired <see cref="T:System.Drawing.Color"/>.</param>
+        </member>
+        <member name="M:BrickGame.Client.Setup">
+            <summary>
+            Adding functionalities to <see cref="F:BrickGame.Client.canvas"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Client.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+        <member name="M:BrickGame.Client.SetLoop(System.Object,System.EventArgs)">
+            <summary>
+            Schedules looping events.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:BrickGame.InteractiveClient">
+            <summary>
+            Complete client with layered <see cref="T:BrickGame.Sprite"/>s at fixed positions.
+            </summary>
+        </member>
+        <member name="M:BrickGame.InteractiveClient.LoadScreens(System.String)">
+            <summary>
+            Accessing images from <strong>screens\</strong>.
+            </summary>
+            <param name="imagePrefix">Name prefix (without the <c>-wxh.png</c> part) identifying the image.</param>
+            <returns>A <see cref="T:System.Windows.Forms.Panel"/> with the image.</returns>
+        </member>
+        <member name="T:BrickGame.Constants">
+            <summary>
+            Contants used throughout the package.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Asteroids">
+            <summary>
+            An Asteroids game.
+            </summary>
+            <para>Read the <strong>Game Manuals</strong>.</para>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.#ctor">
+            <summary>
+            Constructor for <see cref="T:BrickGame.Games.Asteroids"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.Start">
+            <summary>
+            Defines game objects.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input during the game.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.Manage(System.Int32)">
+            <summary>
+            Game logic implementation.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.CheckHit">
+            <summary>
+            Bullets disappear and destroy asteroids upon collision.
+            </summary>
+            <returns>Number of asteroid Blocks destroyed.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.UpdateScore(System.Int32)">
+            <summary>
+            Scoring mechanics.
+            </summary>
+            <param name="blocksHit"></param>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.TrySpawnBomb(System.Int32)">
+            <summary>
+            Handles the <see cref="T:BrickGame.Bomb"/>'s spawn over time according to its spawn rate.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.CheckVictory">
+            <summary>
+            The game is endless, except for defeat.
+            </summary>
+            <returns>Whether the game has been beaten.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.CheckDefeat">
+            <summary>
+            Defeat condition.
+            </summary>
+            <para>Occurs when an asteroid {@link Block} reaches either the
+            <see cref="F:BrickGame.Games.Asteroids.shooter"/> or the lower border of the grid.</para>
+            <returns>Whether the game was lost.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.MoveAsteroids(System.Int32)">
+            <summary>
+            Organizes the asteroids' display and movement.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.Bullet.#ctor(System.Drawing.Point)">
+            <summary>
+            A <see cref="T:BrickGame.Block"/> moving up.
+            </summary>
+            <param name="coords"></param>
+        </member>
+        <member name="T:BrickGame.Games.Asteroids.Shooter">
+            <summary>
+            Manages the player-controlled shooter.
+            </summary>
+            <para>A <see cref="T:BrickGame.Block"/> moving horizontally at the bottom of the grid
+            that can shoot <see cref="T:BrickGame.Games.Asteroids.Bullet"/>s.</para>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.Shooter.#ctor">
+            <summary>
+            Sets <see cref="T:BrickGame.Games.Asteroids.Shooter"/>'s initial position.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.Shooter.Move">
+            <summary>
+            Avoids the <see cref="T:BrickGame.Games.Asteroids.Shooter"/> from leaving the grid.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Asteroids.Shooter.Shoot">
+            <summary>
+            Spawns a <see cref="T:BrickGame.Games.Asteroids.Bullet"/>.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Breakout">
+            <summary>
+            A Breakout game.
+            </summary>
+            <para>Read the <strong>Game Manuals</strong>.</para>
+        </member>
+        <member name="F:BrickGame.Games.Breakout.number">
+            <summary>
+            Used to count the target <see cref="T:BrickGame.Block"/>s at the start of a loop.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.#ctor">
+            <summary>
+            Constructor for <see cref="T:BrickGame.Games.Breakout"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Start">
+            <summary>
+            Defines game objects.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input during the game.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Manage(System.Int32)">
+            <summary>
+            Game logic implementation.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.UpdateScore">
+            <summary>
+            Scoring mechanics.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.ManageLevels">
+            <summary>
+            Turns to the next stage upon clearing the current one.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.CheckVictory">
+            <summary>
+            Victory occurs when all 3 stages are cleared.
+            </summary>
+            <returns>Whether the game was beaten.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.CheckDefeat">
+            <summary>
+            Defeat happens if the {@link #ball} falls past the bottom border.
+            </summary>
+            <returns>Whether the game was lost.</returns>
+        </member>
+        <member name="T:BrickGame.Games.Breakout.Target">
+            <summary>
+            Manages the <see cref="T:BrickGame.Block"/>s to be destroyed.
+            </summary>
+            Organizes the drawing and breaking of the target <c>Block</c>s at the top of the grid.
+        </member>
+        <member name="F:BrickGame.Games.Breakout.Target.dictBlock">
+            <summary>
+            Map coordinates to <see cref="T:BrickGame.Block"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Target.#ctor(System.Int32)">
+            <summary>
+            Builds the <see cref="T:BrickGame.Games.Breakout.Target"/>'s structure.
+            </summary>
+            <param name="level">The current stage.</param>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Target.CheckHit(BrickGame.Games.Breakout.Ball)">
+            <summary>
+            Collisions of <c>ball</c> and <c>target</c>.
+            </summary>
+            <param name="ball">The active <c>Ball()</c> instance.</param>
+        </member>
+        <member name="T:BrickGame.Games.Breakout.Paddle">
+            <summary>
+            The player-controlled paddle.
+            </summary>
+            <para>Organizes the drawing, movement, dragging, and reflection off of the paddle.</para>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Paddle.#ctor(BrickGame.Games.Breakout.Ball)">
+            <summary>
+            Builds the <see cref="T:BrickGame.Games.Breakout.Paddle"/>.
+            </summary>
+            <para>It must drag the ball at the start of each phase.</para>
+            <param name="ball">The <c>Ball()</c> instance.</param>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Paddle.Move(System.Int32)">
+            <summary>
+            Mechanics for the <see cref="T:BrickGame.Games.Breakout.Paddle"/>'s movement and the <see cref="T:BrickGame.Games.Breakout.Ball"/>'s launch.
+            </summary>
+            <param name="speed">The <c>ball</c> speed in <see cref="T:BrickGame.Block"/>s per second.</param>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Paddle.CheckPaddleDrag">
+            <summary>
+            Manages <see cref="F:BrickGame.Games.Breakout.Paddle.ball"/> drag and release.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Paddle.CheckPaddleReflect">
+            <summary>
+            Hypothesis for when the <see cref="F:BrickGame.Games.Breakout.Paddle.ball"/> reflects from the paddle.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Breakout.Ball">
+            <summary>
+            Deals with ball's movement, spawning, and border reflection.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Ball.Move">
+            <summary>
+            Sets the diagonal movement.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Breakout.Ball.CheckBorderReflect">
+            <summary>
+            Hypothesis for when the ball reflects from the border.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Game">
+            <summary>
+            Engine for pixel games in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.#ctor">
+            <summary>
+            Loads the game screens.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.Start">
+            <summary>
+            Initializes the instance variables and shows the <see cref="T:BrickGame.Background"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.Reset">
+            <summary>
+            Removes all elements from the screen and starts again.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+        <member name="M:BrickGame.Games.Game.Manage(System.Int32)">
+            <summary>
+            Game logic implementation for endgame.
+            </summary>
+            <param name="t"></param>
+        </member>
+        <member name="M:BrickGame.Games.Game.UpdateScore">
+            <summary>
+            Communicates with the <c>HighScores.json</c> file.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.ToggleVictory">
+            <summary>
+            Removes all elements from the screen and shows the <see cref="T:BrickGame.VictoryScreen"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.ToggleDefeat">
+            <summary>
+            Removes all elements from the screen and shows the <see cref="T:BrickGame.DefeatScreen"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Game.Update(System.Int32)">
+            <summary>
+            Handles the blinking of <see cref="T:BrickGame.BlinkingBlock"/> objects.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Game.DrawEntities(System.Boolean)">
+            Draws all the sprites to the screen. 
+        </member>
+        <member name="M:BrickGame.Games.Game.DrawEntities">
+            <summary>
+            Draws all the sprites to the screen if the game isn't paused.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Snake">
+            <summary>
+            A Snake game.
+            </summary>
+            <para>Read the <strong>Game Manuals</strong>.</para>
+        </member>
+        <member name="F:BrickGame.Games.Snake.keyEnabled">
+            <summary>
+            Used to allow only one directional movement at a time.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.#ctor">
+            <summary>
+            Constructor for <see cref="T:BrickGame.Games.Snake"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.Start">
+            <summary>
+            Defines game objects.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input during the game.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+        <member name="M:BrickGame.Games.Snake.Manage(System.Int32)">
+            <summary>
+            Game logic implementation.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Snake.CheckEat">
+            <summary>
+            The snake grows when it reaches the <see cref="F:BrickGame.Games.Snake.food"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.UpdateScore">
+            <summary>
+            Scoring mechanics.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.CheckVictory">
+            <summary>
+            Victory occurs when the snake's size becomes that of the whole grid.
+            </summary>
+            <returns>Whether the game was beaten.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Snake.CheckDefeat">
+            <summary>
+            Defeat happens if the snake's <see cref="F:BrickGame.Games.Snake.Body.head">head</see> hits the
+            rest of its own body or the borders.
+            </summary>
+            <returns>Whether the game was lost.</returns>
+        </member>
+        <member name="T:BrickGame.Games.Snake.Body">
+            <summary>
+            Organizes the snake's drawing, movement, and growth.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.Body.Move">
+            <summary>
+            Handles the snake's movement and growth mechanics.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Snake.Food">
+            <summary>
+            Organizes the food's spawn randomly.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.Food.#ctor">
+            <summary>
+            Generates random coordinates to spawn a <see cref="T:BrickGame.BlinkingBlock"/> at.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Snake.Food.Respawn">
+            <summary>
+            Draws a <see cref="T:BrickGame.BlinkingBlock"/> at a new random position in the grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Tetris">
+            <summary>
+            A Tetris game.
+            </summary>
+            <para>Read the <strong>Game Manuals</strong>.</para>
+        </member>
+        <member name="F:BrickGame.Games.Tetris.floatSpeed">
+            <summary>
+            Allows movement when a piece touches the floor.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.#ctor">
+            <summary>
+            Constructor for <see cref="T:BrickGame.Games.Tetris"/>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Start">
+            <summary>
+            Defines game objects.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input during the game.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Manage(System.Int32)">
+            <summary>
+            Game logic implementation.
+            </summary>
+            <param name="t">A timer.</param>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.UpdateScore(System.Int32)">
+            <summary>
+            Scoring mechanics.
+            </summary>
+            <param name="fullLines"></param>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.TrySpawnNext">
+            <summary>
+            pieces shall spawn once they stop falling.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.CheckVictory">
+            <summary>
+            The game is endless, except for defeat.
+            </summary>
+            <returns>Whether the game has been beaten.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.CheckDefeat">
+            <summary>
+            Defeat condition.
+            </summary>
+            <para> Occurs happens if the fallen structure reaches the top of the grid.</para>
+            <returns>Whether the game was lost.</returns>
+        </member>
+        <member name="T:BrickGame.Games.Tetris.Piece">
+            <summary>
+            Organizes the four-tiled-piece's mechanics.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.#ctor">
+            Manages spawn and preview. 
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.Spawn">
+            <summary>
+            Draws the desired piece on the screen, at top center.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.PrintPreview">
+            Showcases <see cref="F:BrickGame.Games.Tetris.storedShape"/>. 
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.SwitchShapes">
+            <summary>
+            Mechanics for switching <see cref="F:BrickGame.Games.Tetris.piece"/>s.
+            </summary>
+            <para>Change a <c>piece</c> with <see cref="F:BrickGame.Games.Tetris.Piece.activeShape"/> to one
+            with <see cref="F:BrickGame.Games.Tetris.storedShape"/> (only once for each new spawn).</para>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.Place(System.Char,System.Int32,System.Int32)">
+            <summary>
+            Positions of <see cref="T:BrickGame.Block"/>s to form each shape and track rotation.
+            </summary>
+            <param name="shape">The desired shape.</param>
+            <param name="i">Horizontal coordinate reference.</param>
+            <param name="j">Vertical coordinate reference.</param>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.CalculateDimensions">
+            <summary>
+            Tracks the boundary dimensions of each <see cref="T:BrickGame.Games.Tetris.Piece"/> and updates its <see cref="F:BrickGame.Games.Tetris.Piece.height"/>.
+            </summary>
+            <returns>Horizontal and vertical limits.</returns>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.Move(BrickGame.Constants.Direction)">
+            <summary>
+            Checks if there are obstacles for movement, moves if not.
+            </summary>
+            <param name="direction">One of <c>Direction.Down</c>, <c>Direction.Left</c>,
+            <c>Direction.Right</c>.</param>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.Move">
+            <summary>
+            Checks if there are obstacles for movement, moves if not.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.Rotate">
+            <summary>
+            Checks if there are obstacles for rotation, rotates if not.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.Piece.Drop">
+            <summary>
+            Hard drop. Moves down a piece by its full height.
+            </summary>
+        </member>
+        <member name="T:BrickGame.Games.Tetris.FallenBlocks">
+            <summary>
+            The structure formed by the fallen <see cref="F:BrickGame.Games.Tetris.piece"/>'s <see cref="T:BrickGame.Block"/>s.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.FallenBlocks.Grow">
+            <summary>
+            Makes <see cref="T:BrickGame.Games.Tetris.Piece"/> part of the structure.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Games.Tetris.FallenBlocks.RemoveFullLines">
+            <returns>Number of lines removed.</returns>
+        </member>
+        <member name="T:BrickGame.Sprite">
+            <summary>
+            Defines the appearance and the positioning of unit cells.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Sprite.#ctor(System.Int32,System.Int32,System.Drawing.Color,System.Windows.Forms.Panel)">
+            <summary>
+            A constructor with all parameters.
+            </summary>
+            <param name="i">Horizontal position. Must be from 0 (inclusive) to 10 (exclusive)
+            to show on the screen.</param>
+            <param name="j">Vertical position. Must be from 0 (inclusive) to 20 (exclusive)
+            to show on the screen.</param>
+            <param name="color"><see cref="P:BrickGame.Sprite.Color"/> of the <see cref="T:BrickGame.Sprite"/> lines.</param>
+            <param name="panel">Where to draw the <see cref="T:BrickGame.Sprite"/> on.</param>
+        </member>
+        <member name="M:BrickGame.Sprite.#ctor(System.Int32,System.Int32,System.Windows.Forms.Panel)">
+            <summary>
+            A constructor without the <c>color</c> parameter, which is standardized to <see cref="P:BrickGame.Constants.LineColor"/>.
+            </summary>
+            <param name="i">Horizontal position. Must be from 0 (inclusive) to 10 (exclusive)
+            to show on the screen.</param>
+            <param name="j">Vertical position. Must be from 0 (inclusive) to 20 (exclusive)
+            to show on the screen.</param>
+            <param name="panel">Where to draw the <see cref="T:BrickGame.Sprite"/> on.</param>
+        </member>
+        <member name="M:BrickGame.Sprite.#ctor(System.Int32,System.Int32)">
+            <summary>
+            A constructor with only raw coordinates.
+            </summary>
+            <param name="i">Horizontal position. Must be from 0 (inclusive) to 10 (exclusive)
+            to show on the screen.</param>
+            <param name="j">Vertical position. Must be from 0 (inclusive) to 20 (exclusive)
+            to show on the screen.</param>
+        </member>
+        <member name="M:BrickGame.Sprite.Sprite_Paint(System.Object,System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Draws a stroked rectangle.
+            </summary>
+            <param name="sender"></param>
+            <param name="pe"></param>
+        </member>
+        <member name="M:BrickGame.Sprite.Place">
+            <summary>
+            <see cref="T:BrickGame.Sprite"/> display.
+            </summary>
+            <para> Adjusts and shows the <c>Sprite</c> in the 20x10 grid at
+            a fixed position.</para>
+        </member>
+        <member name="T:BrickGame.Background">
+            <summary>
+            The background image for the Brick Game's client.
+            </summary>
+        </member>
+        <member name="M:BrickGame.Background.Draw">
+            <summary>
+            Draws a 20x10 grid of <see cref="T:BrickGame.Sprite"/>s colored <see cref="P:BrickGame.Constants.ShadeColor"/>.
+            </summary>
+        </member>
+        <member name="T:BrickGame.VictoryScreen">
+            <summary>
+            A 'You Win' message.
+            </summary>
+        </member>
+        <member name="M:BrickGame.VictoryScreen.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.DefeatScreen">
+            <summary>
+            A 'Game Over' message.
+            </summary>
+        </member>
+        <member name="M:BrickGame.DefeatScreen.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews">
+            <summary>
+            Organizes the game preview screens.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Snake1">
+            <summary>
+            First preview for <strong>Snake</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Snake1.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Snake2">
+            <summary>
+            Second preview for <strong>Snake</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Snake2.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Snake3">
+            <summary>
+            Third preview for <strong>Snake</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Snake3.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Breakout1">
+            <summary>
+            First preview for <strong>Breakout</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Breakout1.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Breakout2">
+            <summary>
+            Second preview for <strong>Breakout</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Breakout2.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Breakout3">
+            <summary>
+            Third preview for <strong>Breakout</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Breakout3.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Asteroids1">
+            <summary>
+            First preview for <strong>Asteroids</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Asteroids1.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Asteroids2">
+            <summary>
+            Second preview for <strong>Asteroids</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Asteroids2.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Asteroids3">
+            <summary>
+            Third preview for <strong>Asteroids</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Asteroids3.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Tetris1">
+            <summary>
+            First preview for <strong>Tetris</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Tetris1.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Tetris2">
+            <summary>
+            Second preview for <strong>Tetris</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Tetris2.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.GamePreviews.Tetris3">
+            <summary>
+            Third preview for <strong>Tetris</strong>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.GamePreviews.Tetris3.Draw">
+            <summary>
+            Draws the pixel message with <see cref="T:BrickGame.Sprite"/>s in a 20x10 grid.
+            </summary>
+        </member>
+        <member name="T:BrickGame.HighScoresScreen">
+            <summary>
+            Reads, formats, and shows all entries from <c>HighScores.json</c>.
+            </summary>
+        </member>
+        <member name="M:BrickGame.HighScoresScreen.#ctor">
+            <summary>
+            A constructor for a <see cref="T:System.Windows.Forms.Panel"/> with all the necessary information,
+            which is then shown at the main <see cref="F:BrickGame.Client.canvas"/>.
+            </summary>
+        </member>
+        <member name="T:BrickGameClient">
+            <summary>
+            Entry point for the execution of the main package.
+            </summary>
+            <para>Manages all the client and game mechanics and their interactions.</para>
+            <para>Read the <strong>Game Manuals</strong>.</para>
+        </member>
+        <member name="M:BrickGameClient.#ctor">
+            <summary>
+            Initializing the GUI.
+            </summary>
+        </member>
+        <member name="M:BrickGameClient.CreateHighScores">
+            <summary>
+            Generates the HighScores.json file, if it doesn't already exist.
+            </summary>
+        </member>
+        <member name="M:BrickGameClient.Setup">
+            <summary>
+            Manages all the console and game mechanics and their interactions.
+            </summary>
+        </member>
+        <member name="M:BrickGameClient.SetLoop(System.Object,System.EventArgs)">
+            <summary>
+            List of scheduled events.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="T:BrickGameClient.Selector">
+            <summary>
+            Mechanics for game selection, previews, and high scores.
+            </summary>
+        </member>
+        <member name="M:BrickGameClient.Selector.#ctor">
+            <summary>
+            Instantiates all the game classes and loads previews.
+            </summary>
+        </member>
+        <member name="M:BrickGameClient.Selector.SetKeyBindings(System.Windows.Forms.Keys,System.Boolean)">
+            <summary>
+            Deals with user input.
+            </summary>
+            <param name="key">A <see cref="T:System.Windows.Forms.Keys"/> identifier for a key.</param>
+            <param name="pressed">Whether <c>key</c> was pressed or released.</param>
+        </member>
+    </members>
+</doc>
